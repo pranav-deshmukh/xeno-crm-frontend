@@ -27,7 +27,6 @@ export default function SignIn() {
     fetchProviders()
   }, [])
 
-  // Redirect if already logged in
   useEffect(() => {
     if (status === 'authenticated') {
       router.push('/')
