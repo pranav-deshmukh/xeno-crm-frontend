@@ -95,7 +95,7 @@ const CampaignCreationUI = () => {
 
   const generateAISuggestions = async () => {
     if (!aiObjective.trim()) {
-      alert('Please describe your campaign objective');
+      // alert('Please describe your campaign objective');
       return;
     }
 
@@ -130,7 +130,7 @@ const CampaignCreationUI = () => {
       }
     } catch (error) {
       console.error('Error generating suggestions:', error);
-      alert('Failed to generate suggestions. Please try again.');
+      // alert('Failed to generate suggestions. Please try again.');
     } finally {
       setIsGeneratingAI(false);
     }
@@ -154,7 +154,7 @@ const CampaignCreationUI = () => {
 
   const createCampaign = async () => {
     if (!campaignName || !selectedSegment || !customMessage) {
-      alert('Please fill in all required fields');
+      // alert('Please fill in all required fields');
       return;
     }
 
@@ -174,7 +174,7 @@ const CampaignCreationUI = () => {
 
       if (response.ok) {
         const result = await response.json();
-        alert(`Campaign created successfully! Targeting ${result.campaign.audience_size} customers.`);
+        // alert(`Campaign created successfully! Targeting ${result.campaign.audience_size} customers.`);
         // Reset form
         setCampaignName('');
         setSelectedSegment('');
@@ -187,10 +187,10 @@ const CampaignCreationUI = () => {
         setShowAIGenerator(false);
       } else {
         const error = await response.json();
-        alert(`Error: ${error.error}`);
+        // alert(`Error: ${error.error}`);
       }
     } catch (error) {
-      alert('Error creating campaign');
+      // alert('Error creating campaign');
       console.error('Campaign creation error:', error);
     } finally {
       setIsLoading(false);

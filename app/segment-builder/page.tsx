@@ -306,12 +306,12 @@ const CampaignBuilder = () => {
 
   const saveCampaign = async () => {
     if (!campaignName.trim()) {
-      alert("Please enter a campaign name");
+      // alert("Please enter a campaign name");
       return;
     }
 
     if (rules.length === 0) {
-      alert("Please add at least one rule");
+      // alert("Please add at least one rule");
       return;
     }
 
@@ -338,16 +338,16 @@ const CampaignBuilder = () => {
 
       const result = await response.json();
 
-      alert(
-        `Segment "${campaignName}" saved successfully with ${result.segment.audience_size} customers!`
-      );
+      // alert(
+      //   `Segment "${campaignName}" saved successfully with ${result.segment.audience_size} customers!`
+      // );
 
       setCampaignName("");
       setRules([]);
       router.push("/campaign-history");
     } catch (error) {
       console.error("Error saving segment:", error);
-      alert("Failed to save segment. Please try again.");
+      // alert("Failed to save segment. Please try again.");
     } finally {
       setAudienceData((prev) => ({ ...prev, loading: false }));
     }
@@ -744,7 +744,7 @@ const CampaignBuilder = () => {
                         const data = await response.json();
                         setRules(data.rules); // replace with AI-generated rules
                       } catch (error) {
-                        alert("Failed to generate rules. Try again.");
+                        // alert("Failed to generate rules. Try again.");
                       } finally {
                         setLoadingAI(false);
                       }
