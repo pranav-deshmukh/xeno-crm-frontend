@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { 
-  Home, Users, Send, BarChart3, Settings, Target,
-  Activity, User, ChevronDown 
+  Home, Send, Target, User, ChevronDown 
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -43,12 +42,12 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-            <Image src={'/logo.svg'} alt="Logo" width={40} height={40} />
+          <div className="rounded-lg flex items-center justify-center">
+            <Image src={'/logo.svg'} alt="Logo" width={70} height={70} />
           </div>
           <div>
             {/* <h1 className="text-xl font-bold text-gray-900"></h1> */}
-            <p className="text-xs text-gray-500">Next-Gen CRM</p>
+            <p className="text-xs text-gray-500 font-bold">Next-Gen CRM</p>
           </div>
         </div>
       </div>
