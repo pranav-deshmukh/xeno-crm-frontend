@@ -54,7 +54,7 @@ const CampaignCreationUI = () => {
 
   const fetchSegments = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/segments');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/segments`);
       const data = await response.json();
       setSegments(data);
     } catch (error) {
@@ -69,7 +69,7 @@ const CampaignCreationUI = () => {
     }
     
     try {
-      const response = await fetch(`http://localhost:8080/api/segments/${segmentId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/segments/${segmentId}`);
       const data = await response.json();
       setSegmentDetails(data);
     } catch (error) {
@@ -101,7 +101,7 @@ const CampaignCreationUI = () => {
 
     setIsGeneratingAI(true);
     try {
-      const response = await fetch('http://localhost:8080/api/ai/generate-messages', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/ai/generate-messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const CampaignCreationUI = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/campaigns/create', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/campaigns/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

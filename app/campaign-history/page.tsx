@@ -8,13 +8,34 @@ import {
   History,
   Plus,
   Copy,
-  Eye
+  Eye,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+interface ICampaign {
+  campaign_id: string;
+  name: string;
+  segment_id: string;
+  message_template: string;
+  status: "draft" | "running" | "completed" | "failed";
+  total_audience: number;
+  sent_count: number;
+  failed_count: number;
+  pending_count: number;
+  started_at?: Date;
+  completed_at?: Date;
+  created_at: Date;
+  updated_at: Date;
+  date: string;
+  audienceSize: number;
+  sent: number;
+  failed: number;
+  pending: number;
+}
+
 const CampaignHistory = () => {
-  const [campaigns, setCampaigns] = useState([]);
+  const [campaigns, setCampaigns] = useState<ICampaign[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -32,7 +53,7 @@ const CampaignHistory = () => {
 
   const fetchCampaigns = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/campaigns/get");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/campaigns/get`);
       const updatedCampaigns = await response.json();
       setCampaigns(updatedCampaigns);
       setLoading(false);
@@ -59,9 +80,14 @@ const CampaignHistory = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
             <History className="w-8 h-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Campaign History</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Campaign History
+            </h1>
           </div>
-          <button onClick={()=>router.push('/create-campaign')} className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+          <button
+            onClick={() => router.push("/create-campaign")}
+            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          >
             <Plus className="w-5 h-5" />
             New Campaign
           </button>
@@ -113,39 +139,49 @@ const CampaignHistory = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Zap className="w-4 h-4 text-red-500" />
-                        <span className="font-medium">{campaign.failed || 0}</span>
+                        <span className="font-medium">
+                          {campaign.failed || 0}
+                        </span>
                         <span className="text-gray-500">failed</span>
                       </div>
                       {campaign.pending > 0 && (
                         <div className="flex items-center gap-2">
                           <Clock className="w-4 h-4 text-yellow-500" />
-                          <span className="font-medium">{campaign.pending}</span>
+                          <span className="font-medium">
+                            {campaign.pending}
+                          </span>
                           <span className="text-gray-500">pending</span>
                         </div>
                       )}
                     </div>
 
                     {/* Progress bar for running campaigns */}
-                    {campaign.status === "running" && campaign.audienceSize > 0 && (
-                      <div className="mb-4">
-                        <div className="bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-                            style={{
-                              width: `${Math.min(
-                                ((campaign.sent + campaign.failed) / campaign.audienceSize) * 100,
+                    {campaign.status === "running" &&
+                      campaign.audienceSize > 0 && (
+                        <div className="mb-4">
+                          <div className="bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-blue-600 h-2 rounded-full transition-all duration-500"
+                              style={{
+                                width: `${Math.min(
+                                  ((campaign.sent + campaign.failed) /
+                                    campaign.audienceSize) *
+                                    100,
+                                  100
+                                )}%`,
+                              }}
+                            />
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">
+                            {Math.round(
+                              ((campaign.sent + campaign.failed) /
+                                campaign.audienceSize) *
                                 100
-                              )}%`,
-                            }}
-                          />
+                            )}
+                            % complete
+                          </div>
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">
-                          {Math.round(
-                            ((campaign.sent + campaign.failed) / campaign.audienceSize) * 100
-                          )}% complete
-                        </div>
-                      </div>
-                    )}
+                      )}
                   </div>
 
                   <div className="flex items-center gap-3">
@@ -171,7 +207,10 @@ const CampaignHistory = () => {
             <p className="text-gray-500 mb-6">
               Create your first campaign to start reaching your audience
             </p>
-            <button onClick={()=>router.push('/create-campaign')} className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors mx-auto">
+            <button
+              onClick={() => router.push("/create-campaign")}
+              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors mx-auto"
+            >
               <Plus className="w-5 h-5" />
               Create Campaign
             </button>

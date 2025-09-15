@@ -60,7 +60,7 @@ const XenoDashboard = () => {
   useEffect(() => {
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/dashboard/stats');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/dashboard/stats`);
       const data = await response.json();
       setDashboardStats(data);
     } catch (error) {

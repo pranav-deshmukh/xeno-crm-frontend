@@ -1,5 +1,8 @@
 import { Rule } from "./Rules";
 
+
+export type TemplateRule = Omit<Rule, "id">;
+
 export type DraggedItem =
   | ({ type: "rule" } & {
       id: string;
@@ -10,7 +13,10 @@ export type DraggedItem =
     })
   | ({ type: "template" } & {
       id: string;
-      rules: Rule[];
+      rules: TemplateRule[]; 
+      name: string;
+      description: string;
+      icon: string;
     })
   | ({ type: "logic" } & {
       operator: "AND" | "OR";
