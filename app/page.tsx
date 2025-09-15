@@ -19,30 +19,7 @@ export default function Home() {
     )
   }
 
-  if (session) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-center bg-white rounded-2xl shadow-xl p-12 border border-gray-100">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Welcome back, {session.user?.name}! 🎉
-          </h1>
-          <p className="text-gray-600 mb-8 text-lg">
-            Your personalized CRM dashboard is ready
-          </p>
-          <Link
-            href="/dashboard"
-            className="bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-blue-700 shadow-lg transition-all transform hover:scale-105 inline-flex items-center space-x-2"
-          >
-            <span>Go to Dashboard</span>
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </div>
-    )
-  }
+  
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -54,10 +31,16 @@ export default function Home() {
             </div>
             <span className="text-2xl font-bold text-blue-600">xeno</span>
           </div>
-          
-          
-
-          <div className="flex items-center space-x-4">
+          {session?(
+            <Link
+            href="/dashboard"
+            className="bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-blue-700 shadow-lg transition-all transform hover:scale-105 inline-flex items-center space-x-2"
+          >
+            <span>Go to Dashboard</span>
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+          ):(
+            <div className="flex items-center space-x-4">
             <button 
               onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
               className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
@@ -66,6 +49,18 @@ export default function Home() {
             <ArrowRight className="w-4 h-4" />
             </button>
           </div>
+          )}
+          
+          
+          {/* <div className="flex items-center space-x-4">
+            <button 
+              onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+              className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
+            >
+              Sign in
+            <ArrowRight className="w-4 h-4" />
+            </button>
+          </div> */}
         </div>
       </nav>
 
