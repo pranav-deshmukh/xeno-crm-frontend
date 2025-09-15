@@ -235,7 +235,7 @@ const XenoDashboard = () => {
           </div>
 
           {/* Campaign Performance Chart Placeholder */}
-          <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          {/* <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-gray-900">Campaign Performance Trends</h2>
               <div className="flex items-center gap-2">
@@ -256,7 +256,7 @@ const XenoDashboard = () => {
                 <p className="text-gray-500">Campaign performance chart would go here</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </main>
       </div>
     </div>
